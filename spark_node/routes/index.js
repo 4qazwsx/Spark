@@ -6,6 +6,8 @@ var fs = require('fs')
 
 
 const SparkPolicy = require('../policies/SparkPolicy')
+const UserPolicy = require('../policies/UserPolicy')
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('user', { title: 'Express'});  
@@ -13,7 +15,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/sparkSubmit', SparkPolicy.sparkSubmit )
-router.post('/makeList', SparkPolicy.makeList )
+router.post('/makeList', UserPolicy.makeList )
 
 router.get('/spark',SparkPolicy.command)
 //router.get('/yarnAll', SparkPolicy.AllYarnStates)
@@ -21,9 +23,9 @@ router.get('/yarnAllState', SparkPolicy.AllYarnStates)
 router.get('/appState', SparkPolicy.appState)
 
 router.get('/appHelp',SparkPolicy.appHelp)
-router.post('/upload',SparkPolicy.upload)
-router.post('/dataUpload',SparkPolicy.dataUpload)
-router.post('/dataDelete',SparkPolicy.dataDelete)
-router.post('/makeParamaterBlank',SparkPolicy.makeParamaterBlank)
+//router.post('/upload',SparkPolicy.upload)
+router.post('/dataUpload',UserPolicy.dataUpload)
+router.post('/dataDelete',UserPolicy.dataDelete)
+router.post('/makeParamaterBlank',UserPolicy.makeParamaterBlank)
 
 module.exports = router;

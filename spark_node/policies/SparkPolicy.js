@@ -111,29 +111,6 @@ module.exports = {
 			res.send({status:true ,result: stdout})
 		});	
 	},
-        upload(req, res){
-                var form = new multiparty.Form({
-                        fileNames: 'uploadtest.txt',
-                        autoFiles: false,
-                        uploadDir: 'app/',
-//                      maxFilesSize: 1024 * 1024 * 5
-                });
-                form.parse(req, function(error, fields, files){
-                        var path = files.fileInput[0].path
-                        var originalName = files.fileInput[0].originalFilename
-                        console.log('file path : ' + path);
-                        console.log('original name : ' + originalName);
-
-                        //rename upload file
-                        fs.rename(path, 'app/'+originalName, function (err){
-                                console.log('renamed complete');
-                        });
-                        fs.readdir('./app', function (err, files){
-                                res.send({applist: files})
-                        });
-                });
-
-        },
 	dataUpload(req, res){
 		var DummyPath = 'app/'
 		var form = new multiparty.Form({
@@ -160,8 +137,6 @@ module.exports = {
 				exec('rm '+DummyPath+originalName , function(err, stdout, stderr){
 					console.log('Remove Dummy DATA');
 					//make new data list
-
-
 					exec("curl -i 'http://192.168.2.12:50070/webhdfs/v1//data?op=LISTSTATUS'" , function(err, stdout, stderr){
 						//make data list
 						var dataList = stdout.split('pathSuffix":"')
