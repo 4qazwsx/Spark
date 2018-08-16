@@ -179,7 +179,7 @@ module.exports = {
 	},
 	dataDelete(req, res){
 		//Remove DATA to HDFS
-		exec('hdfs dfs -rm /' + dataFolder +'/'+ req.body.data , function(err, stdout, stderr){
+		exec('hdfs dfs -rm -r /' + dataFolder +'/'+ req.body.data , function(err, stdout, stderr){
 			console.log('Remove DATA to HDFS')
 			//make new data list
 
@@ -212,7 +212,7 @@ module.exports = {
 			 			data[i] = data[i].split('[')[0]
 					//	console.log(data[i])
 					}
-					res.send({paralist : data})
+					res.send({paralist : data, description : metadata.description})
 				}
 		})
 	}
